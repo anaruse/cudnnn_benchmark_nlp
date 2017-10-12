@@ -101,7 +101,7 @@ def test_performance(args):
             with timer.get_timer(xp) as t:
                 loss.backward()
             time_backward = t.total_time()
-            opt.update()
+            optimizer.update()
 
             sum_forward_time += time_forward
             sum_backward_time += time_backward
