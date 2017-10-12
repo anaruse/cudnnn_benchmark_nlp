@@ -52,7 +52,6 @@ def make_minibatch(dataset, batchsize):
 
 def test_performance(args):
     if args.gpu >= 0:
-        cuda.init()
         cuda.get_device(args.gpu).use()
     xp = cuda.cupy if args.gpu >= 0 else np
 
