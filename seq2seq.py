@@ -2,7 +2,7 @@
 
 import argparse
 
-from nltk.translate import bleu_score
+# from nltk.translate import bleu_score
 import numpy
 import progressbar
 import six
