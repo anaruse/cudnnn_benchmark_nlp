@@ -28,13 +28,13 @@ import timer
 from seq2seq import Seq2seq
 
 
-def make_random_dataset(xp=None, datasize=10000, seq_length=20, n_input=100,
+def make_random_dataset(xp=None, datasize=10000, seq_length=20, n_vocab=1000,
                         random_length=False, batchsize=32):
     if random_length:
-        dataset = [np.random.normal(0.0, 1.0, (random.randint(1, seq_length), n_input))
+        dataset = [np.random.randint(0, n_vocab, seq_length)
                    for _ in xrange(datasize)]
     else:
-        dataset = np.random.normal(0.0, 1.0, (datasize, seq_length, n_input))
+        dataset = np.random.randint(0, n_vocab, (datasize, seq_length))
         dataset = dataset.tolist()
     dataset = [xp.array(d, dtype=xp.float32) for d in dataset]
     dataset = make_minibatch(dataset, batchsize)
@@ -59,10 +59,10 @@ def test_performance(args):
     # make data
     def make_seq2seq_dataset():
         dataset_s = make_random_dataset(xp, args.datasize, args.seq_length,
-                                        args.n_input, args.random_length,
+                                        args.n_vocab, args.random_length,
                                         args.batchsize)
         dataset_t = make_random_dataset(xp, args.datasize, args.seq_length,
-                                        args.n_input, args.random_length,
+                                        args.n_vocab, args.random_length,
                                         args.batchsize)
 
         dataset = [(s, t) for s, t in six.moves.zip(dataset_s, dataset_t)]
