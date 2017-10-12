@@ -36,7 +36,7 @@ def make_random_dataset(xp=None, datasize=10000, seq_length=20, n_vocab=1000,
     else:
         dataset = np.random.randint(0, n_vocab, (datasize, seq_length))
         dataset = dataset.tolist()
-    dataset = [xp.array(d, dtype=xp.float32) for d in dataset]
+    dataset = [xp.array(d, dtype=xp.int32) for d in dataset]
     dataset = make_minibatch(dataset, batchsize)
     return dataset
 
