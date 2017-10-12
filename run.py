@@ -31,7 +31,6 @@ from seq2seq import Seq2seq
 def make_random_dataset(xp=None, datasize=10000, seq_length=20, n_input=100,
                         random_length=False, batchsize=32):
     if random_length:
-        # Todo: ここを最大長を指定してランダムな長さにする
         dataset = [np.random.normal(0.0, 1.0, (random.randint(1, seq_length), n_input))
                    for _ in xrange(datasize)]
     else:
@@ -58,10 +57,19 @@ def test_performance(args):
     xp = cuda.cupy if args.gpu >= 0 else np
 
     # make data
-    dataset = make_random_dataset(xp, args.datasize, args.seq_length,
-                                  args.n_input, args.random_length, args.batchsize)
-    dataset_test = make_random_dataset(xp, args.datasize, args.seq_length,
-                                       args.n_input, args.random_length, args.batchsize)
+    def make_seq2seq_dataset():
+        dataset_s = make_random_dataset(xp, args.datasize, args.seq_length,
+                                        args.n_input, args.random_length,
+                                        args.batchsize)
+        dataset_t = make_random_dataset(xp, args.datasize, args.seq_length,
+                                        args.n_input, args.random_length,
+                                        args.batchsize)
+
+        dataset = [(s, t) for s, t in six.moves.zip(dataset_s, dataset_t)]
+        return dataset
+
+    dataset = make_seq2seq_dataset()
+    dataset_test = make_seq2seq_dataset()
 
     model = Seq2seq(args.n_layer, args.n_vocab, args.n_vocab, args.n_units, args.rnn_algo)
     if args.gpu >= 0:
