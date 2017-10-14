@@ -81,7 +81,7 @@ def test_performance(args):
     avg_time_forward = []
     avg_time_backward = []
     avg_time_forward_test = []
-
+    time_forward_first = 0.0
     # n epoch
     for i in xrange(args.n_epoch):
         sum_forward_time = 0.0
@@ -94,6 +94,8 @@ def test_performance(args):
                 loss = model(xs, ys)
 
             time_forward = t.total_time()
+            if i == 0 and time_forward_first == 0.0:
+                time_forward_first = time_forward
 
             # update
             model.cleargrads()
@@ -128,6 +130,7 @@ def test_performance(args):
     def mean_time(time_list):
         return float(sum(time_list)) / len(time_list)
 
+    print 'time_forward_first:', time_forward_first
     print "avg_time_forward:", mean_time(avg_time_forward)
     print "avg_time_forward_test:", mean_time(avg_time_forward_test)
     print "avg_time_backward:", mean_time(avg_time_backward)
