@@ -70,7 +70,8 @@ def test_performance(args):
     dataset = make_seq2seq_dataset()
     dataset_test = make_seq2seq_dataset()
 
-    model = Seq2seq(args.n_layer, args.n_vocab, args.n_vocab, args.n_units, args.rnn_algo)
+    model = Seq2seq(args.n_layer, args.n_vocab, args.n_vocab,
+                    args.n_units, args.dropout, args.rnn_algo)
     if args.gpu >= 0:
         model.to_gpu(args.gpu)
 
@@ -146,20 +147,17 @@ if __name__ == '__main__':
     parser.add_argument('--n_layer', dest='n_layer',
                         type=int, default=1, help='n_layer')
     parser.add_argument('--dropout', dest='dropout',
-                        type=float, default=0.0, help='dropout')
+                        type=float, default=0.10, help='dropout')
     parser.add_argument('--seq_length', type=int,
                         dest='seq_length', default=5, help='seq_length')
     parser.add_argument('--random_length', dest='random_length',
                         type=int, default=0, help='random_length')
     parser.add_argument('--datasize', type=int,
-                        dest='datasize', default=10000, help='datasize')
+                        dest='datasize', default=1000, help='datasize')
     parser.add_argument('--rnn_algo', default='standard',
                         type=str, help='standard, static, dynamic')
-
     parser.add_argument('--n_epoch', dest='n_epoch',
-                        type=int, default=50, help='n_epoch')
-    parser.add_argument('--save_model', dest='save_model',
-                        type=int, default=0, help='n_epoch')
+                        type=int, default=30, help='n_epoch')
 
     args = parser.parse_args()
     print args
