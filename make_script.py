@@ -16,7 +16,7 @@ def make_script(args):
 
         cmd = '''python run.py {} > {}'''.format(str_args, log_file)
 
-        print 'cmd:', cmd
+        print cmd
 
 
 if __name__ == '__main__':
