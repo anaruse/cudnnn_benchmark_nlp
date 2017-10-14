@@ -45,7 +45,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_epoch', dest='n_epoch', type=int, default=30, help='n_epoch')
     parser.add_argument('--version', dest='version', type=int, default=6, help='version')
     parser.add_argument('--save_name', dest='save_name',
-                        type=str, default='log_v{version}_b{batchsize}_{rnn_algo}.txt', help='save_name')
+                        type=str, default='log_v{version}_b{batchsize}_{rnn_algo}_h{n_units}_l{n_layer}.txt', help='save_name')
 
     args = parser.parse_args()
     print '###', args
