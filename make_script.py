@@ -14,6 +14,9 @@ def make_script(args):
         str_args = ' '.join(['--{}={}'.format(key, value)
                              for key, value in args_dict.items() if key not in ['save_name', 'version']])
 
+        if args.version == 51:
+            str_args += ' --v5=1'
+
         cmd = '''python run.py {} > {}'''.format(str_args, log_file)
 
         print cmd

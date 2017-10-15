@@ -70,8 +70,13 @@ def test_performance(args):
     dataset = make_seq2seq_dataset()
     dataset_test = make_seq2seq_dataset()
 
-    model = Seq2seq(args.n_layer, args.n_vocab, args.n_vocab,
-                    args.n_units, args.dropout, args.rnn_algo)
+    if args.v5:
+        model = Seq2seq(args.n_layer, args.n_vocab, args.n_vocab,
+                        args.n_units, args.dropout, args.rnn_algo, v5=True)
+    else:
+        model = Seq2seq(args.n_layer, args.n_vocab, args.n_vocab,
+                        args.n_units, args.dropout, args.rnn_algo)
+
     if args.gpu >= 0:
         model.to_gpu(args.gpu)
 
@@ -161,6 +166,8 @@ if __name__ == '__main__':
                         type=str, help='standard, static, dynamic')
     parser.add_argument('--n_epoch', dest='n_epoch',
                         type=int, default=30, help='n_epoch')
+    parser.add_argument('--v5', dest='v5',
+                        type=int, default=0, help='v5')
 
     args = parser.parse_args()
     print args
