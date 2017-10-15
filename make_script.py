@@ -16,6 +16,8 @@ def make_script(args):
 
         if args.version == 51:
             str_args += ' --v5=1'
+            if algo != 'standard':
+                continue
 
         cmd = '''python run.py {} > {}'''.format(str_args, log_file)
 
