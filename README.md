@@ -1,10 +1,21 @@
 # cudnnn_benchmark_nlp
-# Install
+## Install
 
-- Chainer : https://github.com/aonotas/cupy/tree/persistent_rnn_cudnn
-- Cupy : https://github.com/aonotas/chainer/tree/cudnn-persistent-rnn
+- Cupy : https://github.com/aonotas/cupy/tree/persistent_rnn_cudnn
+- Chainer : https://github.com/aonotas/chainer/tree/cudnn-persistent-rnn
 
-# Run Example
+
+```
+git clone https://github.com/aonotas/chainer/tree/cudnn-persistent-rnn
+cd chainer
+pip install -e .
+
+git clone https://github.com/aonotas/cupy/tree/persistent_rnn_cudnn
+cd cupy
+pip install -e .
+
+```
+## Run Example
 
 ## rnn_algo=standard
 ```
